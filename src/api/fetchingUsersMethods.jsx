@@ -23,3 +23,19 @@ export const fetchUsersForExplore = async (page) => {
     }
     
 }
+
+export const fetchUser = async (username) => {
+    let response;
+    try{
+        const apiResponse =await axios.get(BASE_URL+"user/"+username, {
+            headers: {
+              Authorization: 'Bearer ' + getAccessToken()
+            }
+           });
+        response = apiResponse.data
+        return response;
+
+    }catch(errors){
+        console.error(errors)
+    }
+}

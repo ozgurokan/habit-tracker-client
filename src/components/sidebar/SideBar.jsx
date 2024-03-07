@@ -63,7 +63,7 @@ function SideBar() {
                 <Link className="router-link" to={"/"}> <NavItem navSize={navSize} icon={FiHome} title={"Home"}/></Link>
                 <Link className="router-link" to={"/explore"}><NavItem navSize={navSize} icon={MdOutlineTravelExplore} title={"Explore"} /></Link>
                 <Link className="router-link" to={"/settings"}><NavItem navSize={navSize} icon={FiSettings} title={"Settings"} /></Link>
-                <Link className="router-link" to={"/profile"}><NavItem navSize={navSize} icon={FiUser} title={"Profile"} /></Link>
+                <Link className="router-link" to={"/profile/"+username}><NavItem navSize={navSize} icon={FiUser} title={"Profile"} /></Link>
             </Flex>
 
             {/* bottom section-profile */}

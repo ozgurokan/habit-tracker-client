@@ -24,3 +24,18 @@ export const fetchHabitsForTimeline = async (page) => {
     }
     
 }
+
+export const fetchUserHabitListForProfile = async (username) => {
+    let response;
+    try{
+        const apiResponse = await axios.get(BASE_URL+"user/"+username+"/habits", {
+            headers: {
+              Authorization: 'Bearer ' + getAccessToken()
+            }
+           });
+        response = apiResponse.data;
+        return response
+    }catch(errors){
+        console.error(errors)
+    }
+}
