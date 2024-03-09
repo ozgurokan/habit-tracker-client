@@ -3,7 +3,7 @@ import {
     CardBody,CardFooter,Button
 
 } from "@chakra-ui/react";
-
+import {Link} from "react-router-dom";
 
 import React from 'react'
 
@@ -30,9 +30,13 @@ function UserCard({user}) {
             },
             }}
         >
-            <Button flex='1' variant='ghost'>
-                Profile
-            </Button>
+            <Box w={"full"}>
+            <Link to={"/profile/"+user.username}>
+                <Button w={"full"} flex='1' variant='ghost'>
+                    Profile
+                </Button>
+            </Link>
+            </Box>
         </CardFooter>
     </Card>
   )

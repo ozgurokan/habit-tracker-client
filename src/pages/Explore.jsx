@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
 import {Flex,Button,Box} from "@chakra-ui/react"
-import {useSelector,useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import UserCardList from '../components/userCard/UserCardList';
 import { fetchUsersForExplore } from "../api/fetchingUsersMethods";
-import UserCard from "../components/userCard/UserCard";
 
 function Explore() {
 
@@ -31,7 +30,6 @@ function Explore() {
       async function fetching() {
         try{
           const response = await fetchUsersForExplore(page);
-          console.log(response)
           setUserList(prev => [...prev,...response.content])
           setMaxPageCount(response.totalPages);
           setLoading(false);

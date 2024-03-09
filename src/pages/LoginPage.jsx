@@ -51,9 +51,8 @@ function LoginPage() {
           }else if(e.response.status==403){
             bag.setErrors({general : "Are you sure about your password?"})
           }
-
           else{
-            bag.setErrors({general : "There is a problem on server! not about you! wait and try again :)"})
+            bag.setErrors({general : "There is a problem on server! wait and try again :)"})
           }
         }
 

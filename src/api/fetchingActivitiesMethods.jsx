@@ -6,11 +6,10 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 
 
 
-export const fetchHabitsForTimeline = async (page) => {
-
+export const fetchAllActivitiesByUser = async (userId) => {
     let response;
     try{
-        const apiResponse = await axios.get(BASE_URL+"habit/paginate?page="+page+"&size=5&sort=id,desc", {
+        const apiResponse = await axios.get(BASE_URL+"activity/get-all/"+userId, {
             headers: {
               Authorization: 'Bearer ' + getAccessToken()
             }
@@ -21,20 +20,22 @@ export const fetchHabitsForTimeline = async (page) => {
     }catch(errors){
         console.error(errors)
     }
-    
 }
 
-export const fetchUserHabitListForProfile = async (username) => {
+export const fetchActivitiesByHabit = async (habitId,page) => {
     let response;
     try{
-        const apiResponse = await axios.get(BASE_URL+"user/"+username+"/habits", {
+        const apiResponse = await axios.get(BASE_URL+"habit/"+habitId+"/activities/paginate?page="+page+"&size=2", {
             headers: {
               Authorization: 'Bearer ' + getAccessToken()
             }
            });
-        response = apiResponse.data;
-        return response
+        response = apiResponse.data
+        return response;
+
     }catch(errors){
         console.error(errors)
     }
 }
+
+
