@@ -48,7 +48,7 @@ function Profile() {
     <Flex textColor={"whitesmoke"} flexDir={"column"} padding="2%"  w="50%" minH={"30%"} background="gray.600" mt={"5"} rounded="10">
         {/* user info flex */}
         <ProfileHeader user={user}/>
-        <ProfileLayout username={user.username}/>
+        <ProfileLayout username={user.username} userId={user.id}/>
     </Flex>
 
 

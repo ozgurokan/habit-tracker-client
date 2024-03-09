@@ -47,7 +47,7 @@ function ProfileHabits() {
                 loading && <div>Loading...</div>
             }
             {
-                habitlist.length > 1 ? <HabitCardList habitList={habitlist} /> : <Box>This user does not have any habbit post</Box>
+                habitlist.length > 0 ? <HabitCardList habitList={habitlist} /> : <Box>This user does not have any habbit post</Box>
             }
         </Flex>
 

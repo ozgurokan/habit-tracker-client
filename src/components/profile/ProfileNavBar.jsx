@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 import React from 'react'
 
-function ProfileNavBar({username}) {
+function ProfileNavBar({username,userId}) {
 
   return (
     <Flex padding={"2%"}  justifyContent="space-between">
@@ -13,7 +13,7 @@ function ProfileNavBar({username}) {
                 Habbits
               </Button>
             </Link>
-            <Link to={"activities"}><Button border="1px solid gray"  variant={"ghost"} ml={"5"}>Activities</Button></Link>
+            <Link to={"activities"} state={{userId : userId}} ><Button border="1px solid gray"  variant={"ghost"} ml={"5"}>Activities</Button></Link>
         </Flex>
         <Flex  justifyContent={"space-between"}>
             <Link to="likes"><Button border="1px solid gray" variant={"ghost"} >Likes</Button></Link>
