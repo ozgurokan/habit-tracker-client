@@ -19,6 +19,8 @@ function HabitCard({habit}) {
     const [activities, setActivities] = useState([]);
     const [loading,setLoading] = useState(false);
     const [isActivitiesHidden,setIsActivitiesHidden] = useState(true);
+    const [isCommentsHidden,setIsCommentsHidden] = useState(true);
+
     const [page,setPage] = useState(0);
     const [maxPage,setMaxPage] = useState(1);
 
@@ -38,10 +40,7 @@ function HabitCard({habit}) {
         
         if(bool){
             fetchActivities(habit.id);
-
-            console.log(activities);
         }
-        console.log(isActivitiesHidden)
     }
 
     const loadMore =() =>{
@@ -51,7 +50,7 @@ function HabitCard({habit}) {
 
 
     return ( 
-        <Flex flexDir={"column"} mb="5">
+        <Flex flexDir={"column"} minW="sm" maxW="sm" mb="5">
         <Card  mt={"2%"} maxW='sm' size={"md"} background={"gray.400"} border={"1px white solid"}>
             <CardHeader>
                 <Flex spacing='4'>
@@ -97,13 +96,18 @@ function HabitCard({habit}) {
                 </Button>
             </CardFooter> 
         </Card>
-        <Flex flexDir={"column"} alignItems="center"  justifyContent="center" >
+        <Flex flexDir={"column"} alignItems="center"  justifyContent="center"  >
         {
-        !isActivitiesHidden && (<> 
-        
-        <ActivityCardList activityList={activities}/> 
-        
-        <Box>{page < maxPage && <Button onClick={() => loadMore()}>Daha Fazla</Button>} </Box> </>)
+            !isActivitiesHidden && (<> 
+            
+            <ActivityCardList activityList={activities}/> 
+            
+            <Box>{page < maxPage && <Button onClick={() => loadMore()}>Daha Fazla</Button>} </Box> </>)
+        }
+        {
+            !isCommentsHidden && (<>
+                ayyy
+            </>)
         }
         
         </Flex>

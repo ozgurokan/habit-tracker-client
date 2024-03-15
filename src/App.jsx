@@ -9,6 +9,7 @@ import Explore from './pages/Explore'
 import Profile from './pages/Profile'
 import ProfileHabits from './pages/ProfileHabits'
 import ProfileActivities from './pages/ProfileActivities'
+import Logout from './pages/Logout'
 function App() {
 
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path='comments'></Route>
           </Route>
         </Route>
+        <Route path='/logout' element={<Logout/>}/>
         
       </Routes>
     

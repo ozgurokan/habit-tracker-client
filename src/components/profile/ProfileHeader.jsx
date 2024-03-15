@@ -5,7 +5,7 @@ function ProfileHeader({user}) {
     <Flex shadow={"0px 0px 5px 0px whitesmoke"} padding={"2%"} rounded="10" alignItems="center" background="gray.500" justifyContent={"space-between"} >
              {/* user avatar-name-username box */}
             <Flex w={"xl"} alignItems={"center"} flexDir="column" size="2xl"  p={"5"} h="full" rounded="10" >
-                <Avatar mb={"5"} size={"xl"} name={"alooo"} />
+                <Avatar mb={"5"} size={"xl"} name={user.name} />
                 <Box mb={"5"}>{user.name}</Box>
                 <Box>@{user.username}</Box>
             </Flex>

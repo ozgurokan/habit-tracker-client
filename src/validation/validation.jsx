@@ -21,3 +21,7 @@ export const changePassValidations = yup.object().shape({
     newPassword : yup.string().notOneOf([yup.ref("currentPassword","Yeni parolanız eski ile aynı olamaz!")]).min(8,"Parola en az 8 karakter olmalıdır!").required(reqmes),
     newPasswordConfirm : yup.string().oneOf([yup.ref("newPassword"),"Parolalar uyuşmuyor!"]).notOneOf([yup.ref("currentPassword"),"Yeni parola eskisi ile aynı olamaz"]).required(reqmes)
 })
+
+export const habitCreationValidation = yup.object().shape({
+    name : yup.string().required(reqmes).min(8,"En az 8 karakter içersin bi zahmet")
+})

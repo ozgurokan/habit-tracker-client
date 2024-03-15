@@ -49,6 +49,9 @@ function Explore() {
  
   return (
     <Flex pb={"2%"} minHeight={"100vh"} width={"full"} flexDir={"column"} alignItems={"center"} justifyContent={"top"}>
+
+      
+
         <UserCardList userList={userList} />
         {loading && <div>Loading...{loading}</div>}
         <Box mt={"2%"}>{page < maxPageCount ? <Button onClick={() => loadMore()}>Daha Fazla</Button> : <Button>Bitti</Button>}</Box>
