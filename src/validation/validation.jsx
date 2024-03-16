@@ -23,5 +23,9 @@ export const changePassValidations = yup.object().shape({
 })
 
 export const habitCreationValidation = yup.object().shape({
-    name : yup.string().required(reqmes).min(8,"En az 8 karakter içersin bi zahmet")
+    name : yup.string().required(reqmes).min(8,"At least 8 char!")
+})
+
+export const commentCreationValidation = yup.object().shape({
+    commentText : yup.string().required(reqmes).min(3,"At least 3 char!")
 })
