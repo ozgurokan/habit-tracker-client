@@ -10,6 +10,7 @@ import {useState} from "react";
 import ActivityCardList from "../acitivityCard/ActivityCardList";
 import { fetchCommentsByHabitId } from "../../api/commentsMethods";
 import CommentList from "../comment/CommentList";
+import CommentForm from "../comment/CommentForm";
 
 
 
@@ -135,6 +136,7 @@ function HabitCard({habit}) {
         {
             !isCommentsHidden && (<>
                 <CommentList habit={habit} commentList={comments} />
+                <CommentForm habit={habit}/>
                 <Box>{page < maxPage && <Button onClick={() => loadMore()}>Daha Fazla</Button>} </Box>
             </>)
             

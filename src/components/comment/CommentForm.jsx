@@ -1,6 +1,8 @@
-import {Flex,Box,Input,Button,FormControl, Textarea} from "@chakra-ui/react";
+import {Flex,Box,Button,FormControl, Textarea} from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
+import { createNewComment,fetchCommentsByHabitId} from '../../api/commentsMethods';
+import {commentCreationValidation} from "../../validation/validation"
 
 import {useState} from 'react'
 
@@ -9,46 +11,46 @@ import {useState} from 'react'
 
 
 
-function CreateHabitForm() {
+function CreateHabitForm({habit}) {
 
 
-    const {id} = useSelector((state) => state.auth.userData)
+    const userId = useSelector((state) => state.auth.userData.id)
 
-
-
+    const habitId = habit.id;
+    
+    
     const formik = useFormik({
         initialValues:{
-            name: "",
+            commentText: "",
         },
-        validationSchema : habitCreationValidation,
+        validationSchema : commentCreationValidation,
         onSubmit : async(values,bag) => {   
             try{ 
-                const request = {
-                    name: values.name,
-                    userId : id
+                const createCommentRequest = {
+                    commentText: values.commentText,
+                    habitId : habitId,
+                    userId : userId
                 }
-                const response = await createNewHabit(request);
-                formik.resetForm();
-                setForceUpdate(forceUpdate +1);
+                console.log(createCommentRequest)
+                const response = await createNewComment(createCommentRequest);
             }catch(e){  
-                bag.setErrors({general : e.response.data.errors})
+                console.log(e)
                 console(bag.errors.general)
             }
-          }
-      }) 
-
+        }
+    })
   return (
-    <Flex alignItems={"center"} background="gray.500" p={5}  m={10} w="30%" border={"1px solid whitesmoke"}>
+    <Flex w={"full"} p="2" background={"gray.500"} rounded="5" mt="2" className='commentForm'>
         <form  onSubmit={formik.handleSubmit} style={{width : "100%"}}>
-            <FormControl w={"full"} maxH={"200px"} >
-                <Textarea maxH={"200px"}  type="text" w={"full"} background="#fff" placeholder={"Habit Desc (Min 5 letter)"} mt="1rem" name={"name"} id={"name"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name} isInvalid={formik.touched.name && formik.errors.name}>
+            <FormControl w={"full"} maxH={"100px"} >
+                <Textarea maxH={"50px"}  type="text" w={"full"} background="#fff" placeholder={"Comment"} name={"commentText"} id={"commentText"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.commentText}>
                 </Textarea>
             </FormControl>
-            {<Box  my={4}>{formik.errors.general && (<Alert justifyContent={"center"} textColor="black" status='error'>{formik.errors.general}</Alert>)}</Box>}
-            <Button my={"1rem"} colorScheme={"teal"} type={"submit"}>Publish</Button>
+            {<Box  my={2}>{formik.errors.general && (<Alert justifyContent={"center"} textColor="black" status='error'>{formik.errors.general}</Alert>)}</Box>}
+            <Button mb="1%" colorScheme={"teal"} type={"submit"}>Comment</Button>
             <hr /> 
         </form>
-  </Flex>
+    </Flex>
   )
 }
 

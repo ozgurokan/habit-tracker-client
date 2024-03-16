@@ -1,6 +1,3 @@
-
-
-
 import {useState,useEffect} from 'react'
 import {useNavigate,useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -50,7 +47,7 @@ function ProfileActivities() {
         loading && <div>Loading...</div>
     }
     {
-        activities.length > 0 ? <ActivityCardList activityList={activities} ></ActivityCardList> : <>This user does no have any activity</>
+        activities.length > 0 ? <ActivityCardList activityList={activities} ></ActivityCardList> : <>This user does not have any activity</>
     }
 </Flex>
   )

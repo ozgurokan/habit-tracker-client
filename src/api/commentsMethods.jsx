@@ -38,10 +38,10 @@ export const fetchCommentsByHabitId = async (habitId) => {
     }
 }
 
-export const fetchCommentsByUserId = async (userId) => {
+export const fetchCommentsByUsername = async (username) => {
     let response;
     try{
-        const apiResponse = await axios.get(BASE_URL+"comments/get-user-comments/"+userId, {
+        const apiResponse = await axios.get(BASE_URL+"comment/get-user-comments/"+username, {
             headers: {
               Authorization: 'Bearer ' + getAccessToken()
             }
