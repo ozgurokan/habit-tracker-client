@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Flex,Button,FormControl,Textarea,Box} from "@chakra-ui/react"
+import {Flex,Button,FormControl,Textarea,Box,useToast} from "@chakra-ui/react"
 import {useSelector,useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import HabitCardList from "../components/habitCard/HabitCardList";
@@ -11,6 +11,14 @@ import {createNewHabit} from "../api/fetchingHabitsMethods";
 
 function TimeLine() {
 
+    const toast = useToast();
+    const toastStyle = {
+        title: 'Habit Post created.',
+        description: "We've created your habit for you.",
+        status: 'success',
+        duration: 2000,
+        isClosable: true
+    } 
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const navigate = useNavigate();
     const {id} = useSelector((state) => state.auth.userData)
@@ -19,6 +27,7 @@ function TimeLine() {
     const [habitlist,setHabitlist] = useState([]);
     const [page,setPage] = useState(0);
     const [maxPageCount,setMaxPageCount] = useState(0);
+    const [isRefresh,setIsResfresh] = useState(0);
 
 
 
@@ -33,37 +42,53 @@ function TimeLine() {
                     name: values.name,
                     userId : id
                 }
-                const response = await createNewHabit(request);
-                window.location.reload(false);
+            createNewHabit(request).then(
+                (res) => {
+                formik.resetForm();
+                toast(toastStyle);
+            }).then(
+                (res) =>{ refreshHabits()},
+                (error) => {
+                    console.log(error)
+            }
+            )
+
             }catch(e){  
                 bag.setErrors({general : e.response.data.errors})
                 console(bag.errors.general)
             }
         }
     }) 
-
-
     const checkLoggedIn = (a) => {
         if(!a){
             navigate("/login")
         };
     };
 
+    const refreshHabits = () => {
+        setLoading(true);
+        fetchHabitsForTimeline(page).then(
+            (res) => {
+                setHabitlist(res.content);
+                setLoading(false)
+        },
+            (error) => {
+                console.log(error);
+                setLoading(false);
+            })
+    }
+
 
     useEffect(() => {
         checkLoggedIn(isLoggedIn);
-        setLoading(true);
-        (async function(){
-            try{
-                const response = await fetchHabitsForTimeline(page);
-                setHabitlist(old => [...old,...response.content]);
-                setMaxPageCount(response.totalPages);
-                setLoading(false);
-            }catch(err){
-                console.log(err);
-            } 
-        })()
+        refreshHabits();
     },[page])
+
+    useEffect(() => {
+        refreshHabits();
+    },[isRefresh])
+
+    
 
 
     const loadMore = () => {
@@ -85,7 +110,7 @@ function TimeLine() {
             </form>
         </Flex>
         
-        <HabitCardList habitList={habitlist} />
+        <HabitCardList habitList={habitlist}/>
         {
             loading && <div>Loading...</div>
         }

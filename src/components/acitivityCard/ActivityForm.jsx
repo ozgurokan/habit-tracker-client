@@ -2,8 +2,8 @@ import {useState} from 'react'
 import {Flex,Box,Button,FormControl, Textarea, useToast} from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
-import { createNewComment} from '../../api/commentsMethods';
-import {commentCreationValidation} from "../../validation/validation"
+import { createNewActivitiy} from '../../api/fetchingActivitiesMethods';
+import {activitiyCreationValidation} from "../../validation/validation"
 
 
 
@@ -11,13 +11,13 @@ import {commentCreationValidation} from "../../validation/validation"
 
 
 
-function CreateHabitForm({habit,refreshComments}) {
+function ActivityForm({habit,refreshActivities}) {
 
     const toast = useToast();
 
     const toastStyle = {
-        title: 'Comment submitted.',
-        description: "We've sumbit your comment.",
+        title: 'Activity submitted.',
+        description: "We've sumbit your activity.",
         status: 'success',
         duration: 2500,
         isClosable: true
@@ -31,27 +31,27 @@ function CreateHabitForm({habit,refreshComments}) {
 
     const formik = useFormik({
         initialValues:{
-            commentText: "",
+            name: "",
         },
-        validationSchema : commentCreationValidation,
+        validationSchema : activitiyCreationValidation,
         onSubmit : async(values,bag) => {   
             try{ 
-                const createCommentRequest = {
-                    commentText: values.commentText,
+                const activityRequest = {
+                    name: values.name,
                     habitId : habitId,
                     userId : userId
                 }
-                createNewComment(createCommentRequest)
+                createNewActivitiy(activityRequest)
                     .then(
                         (res) => {
                             formik.resetForm();
                             toast(toastStyle);
                         },(error) => {
-                            console.log(error);
+                            console.log("error " + error);
                         })
                     .then((res) => {
+                        refreshActivities();
                         setisLoaded((prev) => (prev + 1));
-                        refreshComments();
                     })
             }catch(e){  
                 console.log(e)
@@ -60,18 +60,18 @@ function CreateHabitForm({habit,refreshComments}) {
         }
     })
   return (
-    <Flex w={"full"} p="2" background={"gray.500"} textColor="black" rounded="5" mt="2" className='commentForm'>
+    <Flex w={"full"} p="2" background={"gray.500"} textColor="black" rounded="5" mt="2" className='activityForm'>
         <form  onSubmit={formik.handleSubmit} style={{width : "100%"}}>
             <FormControl w={"full"} maxH={"100px"} >
-                <Textarea maxH={"50px"}  type="text" w={"full"} background="#fff" placeholder={"Comment"} name={"commentText"} id={"commentText"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.commentText}>
+                <Textarea maxH={"50px"}  type="text" w={"full"} background="#fff" placeholder={"Activity"} name={"name"} id={"name"} onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.name}>
                 </Textarea>
             </FormControl>
             {<Box  my={2}>{formik.errors.general && (<Alert justifyContent={"center"} textColor="black" status='error'>{formik.errors.general}</Alert>)}</Box>}
-            <Button mb="1%" colorScheme={"teal"} type={"submit"}>Comment</Button>
+            <Button mb="1%" colorScheme={"teal"} type={"submit"}>Add Activity</Button>
             <hr /> 
         </form>
     </Flex>
   )
 }
 
-export default CreateHabitForm
+export default ActivityForm

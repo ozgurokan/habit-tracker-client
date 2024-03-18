@@ -25,7 +25,7 @@ export const fetchAllActivitiesByUser = async (userId) => {
 export const fetchActivitiesByHabit = async (habitId,page) => {
     let response;
     try{
-        const apiResponse = await axios.get(BASE_URL+"habit/"+habitId+"/activities/paginate?page="+page+"&size=2", {
+        const apiResponse = await axios.get(BASE_URL+"habit/"+habitId+"/activities/paginate?page="+page+"&size=5", {
             headers: {
               Authorization: 'Bearer ' + getAccessToken()
             }
@@ -35,6 +35,20 @@ export const fetchActivitiesByHabit = async (habitId,page) => {
 
     }catch(errors){
         console.error(errors)
+    }
+}
+
+export const createNewActivitiy = async (request) => {
+    try{
+        const apiResponse = await axios.post(BASE_URL+"activity",request,{
+            headers: {
+              Authorization: 'Bearer ' + getAccessToken()
+            }
+           });
+        return apiResponse.data
+
+    }catch(errors){
+        console.error("burda error" + errors)
     }
 }
 

@@ -29,3 +29,7 @@ export const habitCreationValidation = yup.object().shape({
 export const commentCreationValidation = yup.object().shape({
     commentText : yup.string().required(reqmes).min(3,"At least 3 char!")
 })
+
+export const activitiyCreationValidation = yup.object().shape({
+    name: yup.string().required(reqmes).min(5,"At least 5 char!").max(100,"Activities can contain up to 100 char!")
+})
