@@ -9,6 +9,8 @@ import Explore from './pages/Explore'
 import Profile from './pages/Profile'
 import ProfileHabits from './pages/ProfileHabits'
 import ProfileActivities from './pages/ProfileActivities'
+import Logout from './pages/Logout'
+import ProfileComments from './pages/ProfileComments'
 function App() {
 
   return (
@@ -24,9 +26,10 @@ function App() {
             <Route index path='habits' element={<ProfileHabits/>}></Route> 
             <Route path='activities' element={<ProfileActivities/>}></Route>
             <Route path='likes'></Route> 
-            <Route path='comments'></Route>
+            <Route path='comments' element={<ProfileComments/>}></Route>
           </Route>
         </Route>
+        <Route path='/logout' element={<Logout/>}/>
         
       </Routes>
     

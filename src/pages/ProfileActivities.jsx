@@ -1,6 +1,3 @@
-
-
-
 import {useState,useEffect} from 'react'
 import {useNavigate,useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
@@ -30,17 +27,16 @@ function ProfileActivities() {
     useEffect(() => {
         checkLoggedIn(isLoggedIn);
         setLoading(true);
-        (async function(){
-            try{
-                const response = await fetchAllActivitiesByUser(userId);
-                setActivities(response.content)
+        fetchAllActivitiesByUser(userId).then(
+            (res) => {
+                setActivities(res.content);
                 setLoading(false);
-            }catch(err){
+            },
+            (err) => {
                 console.log(err);
-            } 
-        })()
+            }
+            )
     },[])
-    console.log(activities)
 
 
   return (
@@ -50,7 +46,7 @@ function ProfileActivities() {
         loading && <div>Loading...</div>
     }
     {
-        activities.length > 0 ? <ActivityCardList activityList={activities} ></ActivityCardList> : <>This user does no have any activity</>
+        activities.length > 0 ? <ActivityCardList activityList={activities} ></ActivityCardList> : <>This user does not have any activity</>
     }
 </Flex>
   )

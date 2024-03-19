@@ -29,16 +29,14 @@ function Profile() {
     useEffect(() => {
         checkLoggedIn(isLoggedIn);
         setLoading(true);
-        (async function(){
-            try{
-                const response = await fetchUser(username);
-                setUser(response)
-                setLoading(false);
-            }catch(err){
-                console.log(err);
-            } 
-        })()
-    },[])
+        fetchUser(username).then(
+            (res) => {
+            setUser(res);
+            setLoading(false);
+        }, (err) => {
+            console.log(err);
+        })
+    },[username])
 
 
 
@@ -46,7 +44,6 @@ function Profile() {
   return (
     <>
     <Flex textColor={"whitesmoke"} flexDir={"column"} padding="2%"  w="50%" minH={"30%"} background="gray.600" mt={"5"} rounded="10">
-        {/* user info flex */}
         <ProfileHeader user={user}/>
         <ProfileLayout username={user.username} userId={user.id}/>
     </Flex>

@@ -5,6 +5,20 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 
 
 
+export const createNewHabit = async (habitRequest) => {
+    let response;
+    try{
+        const apiResponse = await axios.post(BASE_URL+"habit",habitRequest,{
+            headers:{
+                Authorization : 'Bearer ' + getAccessToken()
+            },
+        });
+        response = apiResponse.data;
+        return response;
+    }catch(errors){
+        console.error(errors);
+    }
+}
 
 export const fetchHabitsForTimeline = async (page) => {
 

@@ -29,8 +29,7 @@ function SideBar() {
     const navigate = useNavigate();
 
     const logout = () => {
-        dispatch(storeLogOut())
-        navigate("/home")
+        navigate("/logout")
     }
     return (  
         <Flex

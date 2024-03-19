@@ -16,8 +16,16 @@ function ProfileNavBar({username,userId}) {
             <Link to={"activities"} state={{userId : userId}} ><Button border="1px solid gray"  variant={"ghost"} ml={"5"}>Activities</Button></Link>
         </Flex>
         <Flex  justifyContent={"space-between"}>
-            <Link to="likes"><Button border="1px solid gray" variant={"ghost"} >Likes</Button></Link>
-            <Link to="comments"><Button border="1px solid gray" variant={"ghost"} ml={"5"}>Comments</Button></Link>
+            <Link to="likes">
+                <Button border="1px solid gray" variant={"ghost"} >
+                  Likes
+                </Button>
+            </Link>
+            <Link to={"comments"} state={{username : username}}>
+                <Button border="1px solid gray" variant={"ghost"} ml={"5"}>
+                  Comments
+                </Button>
+            </Link>
         </Flex>
     </Flex>
   )
