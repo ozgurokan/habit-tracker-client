@@ -27,17 +27,16 @@ function ProfileActivities() {
     useEffect(() => {
         checkLoggedIn(isLoggedIn);
         setLoading(true);
-        (async function(){
-            try{
-                const response = await fetchAllActivitiesByUser(userId);
-                setActivities(response.content)
+        fetchAllActivitiesByUser(userId).then(
+            (res) => {
+                setActivities(res.content);
                 setLoading(false);
-            }catch(err){
+            },
+            (err) => {
                 console.log(err);
-            } 
-        })()
+            }
+            )
     },[])
-    console.log(activities)
 
 
   return (

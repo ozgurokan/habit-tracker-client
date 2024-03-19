@@ -22,10 +22,10 @@ export const createNewComment = async (createCommentRequest) => {
 }
 
 
-export const fetchCommentsByHabitId = async (habitId) => {
+export const fetchCommentsByHabitId = async (habitId,page) => {
     let response;
     try{
-        const apiResponse = await axios.get(BASE_URL+"comment/get-habit-comments/"+habitId, {
+        const apiResponse = await axios.get(BASE_URL+"comment/get-habit-comments/"+habitId+"?page="+page+"&size=5&sort=createAt,DESC", {
             headers: {
               Authorization: 'Bearer ' + getAccessToken()
             }

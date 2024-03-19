@@ -26,7 +26,6 @@ function ActivityForm({habit,refreshActivities}) {
     const userId = useSelector((state) => state.auth.userData.id)
 
     const habitId = habit.id;
-    const [isLoaded, setisLoaded] = useState(1);
     
 
     const formik = useFormik({
@@ -51,7 +50,6 @@ function ActivityForm({habit,refreshActivities}) {
                         })
                     .then((res) => {
                         refreshActivities();
-                        setisLoaded((prev) => (prev + 1));
                     })
             }catch(e){  
                 console.log(e)

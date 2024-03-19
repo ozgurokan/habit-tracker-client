@@ -26,7 +26,6 @@ function CreateHabitForm({habit,refreshComments}) {
     const userId = useSelector((state) => state.auth.userData.id)
 
     const habitId = habit.id;
-    const [isLoaded, setisLoaded] = useState(1);
     
 
     const formik = useFormik({
@@ -50,7 +49,6 @@ function CreateHabitForm({habit,refreshComments}) {
                             console.log(error);
                         })
                     .then((res) => {
-                        setisLoaded((prev) => (prev + 1));
                         refreshComments();
                     })
             }catch(e){  

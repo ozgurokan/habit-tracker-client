@@ -8,7 +8,7 @@ function ActivityCard({activity}) {
             <Flex flexDir={"column"} alignItems="top" p="2" >
                 <Flex px={"1"} w={"full"}  justifyContent="space-between">
                     <Text fontWeight={"600"}>@{activity.user.username}</Text>
-                    <Text fontWeight={"600"}>{activity.createTime.slice(0,10)}</Text>
+                    <Text fontWeight={"600"}>{activity.createTime.slice(0,10)} {activity.createTime.slice(11,19)}</Text>
                 </Flex>
                 <Divider borderColor="gray.900"></Divider>
                 <Flex ml={"5"} mt="3">
