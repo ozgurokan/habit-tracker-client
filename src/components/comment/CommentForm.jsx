@@ -45,12 +45,11 @@ function CreateHabitForm({habit,refreshComments}) {
                         (res) => {
                             formik.resetForm();
                             toast(toastStyle);
+                            refreshComments();
+                            
                         },(error) => {
                             console.log(error);
                         })
-                    .then((res) => {
-                        refreshComments();
-                    })
             }catch(e){  
                 console.log(e)
                 console(bag.errors.general)

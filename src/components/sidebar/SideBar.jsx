@@ -46,12 +46,13 @@ function SideBar() {
                 flexDir={"column"}
                 alignItems={navSize == "small" ? "center": "flex-start"}
                 as={"nav"}
+                color="whitesmoke"
             >
                 <IconButton
                     background={"none"}
                     mt={"5"}
                     _hover= {{background : 'none'}}
-                    icon={<FiMenu fill="gray.400"/>}
+                    icon={<FiMenu/>}
                     onClick={() =>{
                         if(navSize == "small")
                             setNavSize("large")

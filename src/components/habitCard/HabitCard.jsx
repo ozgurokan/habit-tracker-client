@@ -39,53 +39,17 @@ function HabitCard({habit}) {
     const [commentPage,setCommentPage] = useState(-1);
     const [maxCommentPage,setMaxCommentPage] = useState(0);
     const [commentLoading,setCommentLoading] = useState(false);
+    const [isRefreshComment,setIsRefreshComment] = useState(false);
 
 
     const [activityPage,setActivityPage] = useState(-1);
     const [maxActivityPage,setMaxActivityPage] = useState(0);
     const [activityLoading,setActivityLoading] = useState(false);
+    const [isActivityRefresh,setIsActivityResresh] = useState(false);
 
 
 
-    const fetchActivities = (habitId,page) => {
-        setLoading(true);
-        fetchActivitiesByHabit(habitId,page).then(
-            (res) =>{ 
-            setActivities((prev) => [...prev,...res.content])
-            setMaxActivityPage(res.totalPages);
-            setLoading(false);
-            },
-            (err) => {
-            console.log(err);
-        })
-    }
 
-    const refreshActivities = () => {
-        setActivities([]);
-        setActivityPage(0);
-        console.log(activityPage);
-        
-    }
-
-    const fetchComments = (habitId,page) => {
-        setLoading(true);
-        fetchCommentsByHabitId(habitId,page).then(
-            (response) => {
-                setComments((prev) => [...response.content.reverse(),...prev]);
-                setMaxCommentPage(response.totalPages);
-                setLoading(false);
-                console.log(comments)
-            },
-            (error) => {
-                console.log(error)
-        })
-    }
-
-    const refreshComments = () => {
-        setComments([]);
-        setCommentPage(0);
-        console.log(commentPage);
-    }
 
     const handleShowingActivities = (bool) => {
         bool ? setIsActivitiesHidden(false) : setIsActivitiesHidden(true)
@@ -141,19 +105,48 @@ function HabitCard({habit}) {
             didMount.current=false;
         }
         else{
-            fetchComments(habit.id,commentPage); 
+            setLoading(true);
+            fetchCommentsByHabitId(habit.id,commentPage).then(
+                (response) => {
+                    setComments((prev) => [...prev,...response.content]);
+                    setMaxCommentPage(response.totalPages);
+                    setLoading(false);
+                    console.log(comments)
+                },
+                (error) => {
+                    console.log(error)
+            })
         }
-    },[commentPage])
+    },[commentPage,isRefreshComment])
 
     useEffect(() => {
         if(didMount.current){
             didMount.current=false;
         }
         else{
-            fetchActivities(habit.id,activityPage)
+            setActivityLoading(true);
+            fetchActivitiesByHabit(habit.id,activityPage).then(
+                (response) => {
+                    setActivities((prev) => [...prev,...response.content]);
+                    setMaxActivityPage(response.totalPages);
+                    setActivityLoading(false);
+                },
+                (err) => {
+                    console.log(err);
+                }
+            )
         }
-    },[activityPage])
+    },[activityPage,isActivityRefresh])
 
+    const refreshComments = () => {
+        setComments([]);
+        setIsRefreshComment(!isRefreshComment);
+    }
+
+    const refreshActivities = () => {
+        setActivities([]);
+        setIsActivityResresh(!isActivityRefresh)
+    }
 
     return ( 
         <Flex flexDir={"column"} minW="sm" maxW="sm" mb="5">
@@ -215,10 +208,10 @@ function HabitCard({habit}) {
            }
            {
                !isCommentsHidden && (<>
-                    <Box mt="2" >{commentPage < maxCommentPage && <Button onClick={() => setCommentPage((prev) => prev + 1)}>Load More</Button>} </Box>
+                    
                     <CommentList habit={habit} commentList={comments} />
-                   
-                    <CommentForm habit={habit} refreshComments={refreshComments} />
+                    <Box my="2" >{commentPage < maxCommentPage && <Button onClick={() => setCommentPage((prev) => prev + 1)}>Load More</Button>} </Box>
+                    <CommentForm habit={habit} refreshComments={refreshComments}/>
                </>)
                
            }

@@ -33,28 +33,21 @@ function ActivityForm({habit,refreshActivities}) {
             name: "",
         },
         validationSchema : activitiyCreationValidation,
-        onSubmit : async(values,bag) => {   
-            try{ 
-                const activityRequest = {
-                    name: values.name,
-                    habitId : habitId,
-                    userId : userId
-                }
-                createNewActivitiy(activityRequest)
-                    .then(
-                        (res) => {
-                            formik.resetForm();
-                            toast(toastStyle);
-                        },(error) => {
-                            console.log("error " + error);
-                        })
-                    .then((res) => {
-                        refreshActivities();
-                    })
-            }catch(e){  
-                console.log(e)
-                console(bag.errors.general)
+        onSubmit : async(values,bag) => {    
+            const activityRequest = {
+                name: values.name,
+                habitId : habitId,
+                userId : userId
             }
+            createNewActivitiy(activityRequest)
+            .then(
+                (res) => {
+                    formik.resetForm();
+                    toast(toastStyle);
+                    refreshActivities();
+                },(error) => {
+                    console.log("error " + error);
+                })
         }
     })
   return (

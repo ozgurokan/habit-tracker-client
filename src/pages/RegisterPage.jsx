@@ -57,7 +57,7 @@ function Register() {
         id: 0,
         title : "Name",
         name: "name",
-        id: "nameField",
+        idF: "nameField",
         type:"name",
         value : formik.values.name,
         isInvalid : formik.touched.name && formik.errors.name
@@ -66,7 +66,7 @@ function Register() {
         id: 1,
         title : "Surname",
         name: "surname",
-        id: "surnameField",
+        idF: "surnameField",
         type:"name",
         value : formik.values.surname,
         isInvalid : formik.touched.surname && formik.errors.surname
@@ -75,7 +75,7 @@ function Register() {
         id: 2,
         title : "Username",
         name: "username",
-        id: "usernameField",
+        idF: "usernameField",
         type:"username",
         value : formik.values.username,
         isInvalid : formik.touched.username && formik.errors.username
@@ -84,7 +84,7 @@ function Register() {
         id: 3,
         title: "Password",
         name: "password",
-        id: "passwordField",
+        idF: "passwordField",
         value : formik.values.password,
         type:"password",
         isInvalid : formik.touched.password && formik.errors.password
@@ -93,7 +93,7 @@ function Register() {
         id: 4,
         title : "Password Confirm",
         name: "passwordConfirm",
-        id: "passwordConfirmField",
+        idF: "passwordConfirmField",
         type:"password",
         value : formik.values.passwordConfirm,
         isInvalid : formik.touched.passwordConfirm && formik.errors.passwordConfirm
@@ -102,7 +102,7 @@ function Register() {
         id: 5,
         title : "E-mail",
         name: "email",
-        id: "emailField",
+        idF: "emailField",
         type:"email",
         value : formik.values.email,
         isInvalid : formik.touched.email && formik.errors.email
